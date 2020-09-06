@@ -81,7 +81,7 @@ function water_life_get_biome_data(pos)
 	if not table then return nil end
 	local biome = {}
 	biome.id = table.biome
-	biome.name = minetest.get_biome_name(table.biome)
+	biome.name = string.lower(minetest.get_biome_name(table.biome))
 	biome.temp = math.floor((table.heat-32)*5/9)				--turn fahrenheit into celsius
 	biome.humid = math.floor(table.humidity*100)/100
 	return biome

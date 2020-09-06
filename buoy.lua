@@ -3,7 +3,7 @@ minetest.register_node("water_life:shark_buoy", {
 	description = "Shark-buoy, keeps off sharks in radius of 10 nodes",
 	drawtype = "plantlike_rooted",
 	waving = 1,
-	tiles = {"water_life_shark_net_top.png","default_tin_block.png","default_tin_block.png","default_tin_block.png","default_tin_block.png","default_tin_block.png"},
+	tiles = {"water_life_shark_net_top.png","water_life_buoy_body.png","water_life_buoy_body.png","water_life_buoy_body.png","water_life_buoy_body.png","water_life_buoy_body.png"},
 	special_tiles = {{name = "water_life_sharknet.png", tileable_vertical = true}},
 	inventory_image = "water_life_shark_buoy_item.png",
 	paramtype = "light",
@@ -21,7 +21,7 @@ minetest.register_node("water_life:shark_buoy", {
 	
 	node_dig_prediction = "default:water",
 	node_placement_prediction = "water_life:shark_buoy",
-	sounds = default.node_sound_metal_defaults(),
+	sounds = {"water_life_metal"},
 
 	
 	on_place = function(itemstack, placer, pointed_thing)
@@ -111,12 +111,23 @@ minetest.register_entity("water_life:buoy",{
                                             
 })
 
-minetest.register_craft({
-	output = "water_life:shark_buoy",
-	recipe = {
-		{"default:tin_ingot", "dye:orange", "default:tin_ingot"},
-		{"default:tin_ingot", "default:diamond", "default:tin_ingot"},
-		{"default:tin_ingot", "default:tin_ingot", "default:tin_ingot"}
-	}
-})
+if not water_life.clone then
+	minetest.register_craft({
+		output = "water_life:shark_buoy",
+		recipe = {
+			{"default:tin_ingot", "dye:orange", "default:tin_ingot"},
+			{"default:tin_ingot", "default:diamond", "default:tin_ingot"},
+			{"default:tin_ingot", "default:tin_ingot", "default:tin_ingot"}
+		}
+	})
+else
+	minetest.register_craft({
+		output = "water_life:shark_buoy",
+		recipe = {
+			{"mcl_core:granite", "mcl_dye:orange", "mcl_core:granite"},
+			{"mcl_core:granite", "mcl_core:diamond", "mcl_core:granite"},
+			{"mcl_core:granite", "mcl_core:granite", "mcl_core:granite"}
+		}
+	})
+end
 

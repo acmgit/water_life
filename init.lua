@@ -6,10 +6,13 @@
 -----------------------------------------------------------
 
 water_life = {}
-water_life.version = "050920"
+water_life.version = "060920"
 water_life.shark_food = {}
+
 water_life.petz = minetest.get_modpath("petz")
 water_life.mobsredo = minetest.get_modpath("mobs")
+water_life.clone = minetest.get_modpath("mcl_core")
+
 water_life.abr = tonumber(minetest.settings:get('active_block_range')) or 2
 water_life.abo = tonumber(minetest.settings:get('active_object_send_range_blocks')) or 3
 water_life.whale_spawn_rate =  tonumber(minetest.settings:get("water_life_whale_spawn_rate")) or 100     
@@ -42,9 +45,11 @@ if not water_life.apionly then
 	dofile(path.."/animals/riverfish.lua")										-- load riverfish
 	dofile(path.."/animals/piranha.lua")										-- load piranha
 	dofile(path.."/animals/sea_urchin.lua")										-- load sea urchin
-	dofile(path.."/animals/clams.lua")											-- load clams
-	dofile(path.."/flora/plants.lua")											-- load water plants
-	dofile(path.."/flora/corals.lua")											-- load corals
+	if not water_life.clone then							-- not on mineclone game
+		dofile(path.."/animals/clams.lua")										-- load clams
+		dofile(path.."/flora/plants.lua")										-- load water plants
+		dofile(path.."/flora/corals.lua")										-- load corals
+	end
 	dofile(path.."/animals/jellyfish.lua")										-- load jellyfish
 	dofile(path.."/animals/coralfish.lua")										-- load coralfish
 	dofile(path.."/animals/clownfish.lua")										-- load clownfish

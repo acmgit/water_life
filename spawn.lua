@@ -93,8 +93,8 @@ local function spawnstep(dtime)
 					if random(100) < faktor then
 						
 						
-						if (string.match(landdata.name,"rainforest") or string.match(landdata.name,"savanna"))
-						and not fits and landdata.temp > 20 then
+						if (string.match(landdata.name,"rainforest") or string.match(landdata.name,"savanna")
+						or string.match(landdata.name,"jungle")) and landdata.temp > 20 then
 							
 							local obj=minetest.add_entity(geckopos,mobname)			-- ok spawn it already damnit
 						end
@@ -117,17 +117,21 @@ local function spawnstep(dtime)
 				
 				local liquidflag = nil
 				
-				if stype == "default:water_source" then 
-					liquidflag = "sea"
-					
-				elseif stype == "default:river_water_source" then
-					liquidflag = "river"
+				if stype then 
+					if string.match(stype,":water_source") then 
+						liquidflag = "sea"
 						
-				elseif stype == "water_life:muddy_river_water_source" then
-					liquidflag = "muddy"
-					
+					elseif string.match(stype,"river_water_source") then
+						liquidflag = "river"
+							
+					elseif stype == "water_life:muddy_river_water_source" then
+						liquidflag = "muddy"
+						
+					end
 				end
-		
+				
+				--minetest.chat_send_all(dump(liquidflag))
+				
 				if liquidflag and not toomuch and surface then
 					ground = mobkit.pos_shift(surface,{y=(dalam*-1)})
 					
@@ -136,7 +140,8 @@ local function spawnstep(dtime)
 					local faktor = 100 - getcount(animal[mobname]) * 33
 					if random(100) < faktor then
 						local fits = false
-						if string.match(bdata.name,"rainforest") or string.match(bdata.name,"savanna") then fits = true end
+						if string.match(bdata.name,"rainforest") or string.match(bdata.name,"savanna")
+						or string.match(bdata.name,"jungle") then fits = true end
 						
 						if depth < 4 and fits then      --shark min water depth
 							local obj=minetest.add_entity(surface,mobname)			-- ok spawn it already damnit

@@ -76,13 +76,14 @@ minetest.register_abm({
 	end,
 })
 
-
-minetest.register_node("water_life:artificial_skeleton", {
-	description = "artificial coral skeleton",
-	tiles = {"default_coral_skeleton.png"},
-	groups = {cracky = 3},
-	sounds = default.node_sound_stone_defaults(),
-})
+if not water_life.clone then
+	minetest.register_node("water_life:artificial_skeleton", {
+		description = "artificial coral skeleton",
+		tiles = {"default_coral_skeleton.png"},
+		groups = {cracky = 3},
+		sounds = default.node_sound_stone_defaults(),
+	})
+end
 
 minetest.register_craft({
 		
